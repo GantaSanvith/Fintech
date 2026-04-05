@@ -2,8 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 
 const AppContext = createContext()
 
-const API_URL = "http://localhost:3001/transactions"
-
+const API_URL = "https://69d235af5043d95be9719726.mockapi.io/transactions"
 export function AppProvider({ children }) {
   const [transactions, setTransactions] = useState([])
   const [role, setRole] = useState("Admin")
