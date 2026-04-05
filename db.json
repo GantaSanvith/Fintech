@@ -1,0 +1,117 @@
+{
+  "transactions": [
+    {
+      "id": "1",
+      "description": "Swiggy order",
+      "amount": -340,
+      "category": "Food",
+      "date": "2026-04-02",
+      "type": "expense"
+    },
+    {
+      "id": "2",
+      "description": "Salary credit",
+      "amount": 45000,
+      "category": "Income",
+      "date": "2026-04-01",
+      "type": "income"
+    },
+    {
+      "id": "3",
+      "description": "Uber ride",
+      "amount": -180,
+      "category": "Travel",
+      "date": "2026-03-31",
+      "type": "expense"
+    },
+    {
+      "id": "4",
+      "description": "Amazon purchase",
+      "amount": -1299,
+      "category": "Shopping",
+      "date": "2026-03-30",
+      "type": "expense"
+    },
+    {
+      "id": "5",
+      "description": "Freelance payment",
+      "amount": 12000,
+      "category": "Income",
+      "date": "2026-03-28",
+      "type": "income"
+    },
+    {
+      "id": "6",
+      "description": "Zomato order",
+      "amount": -520,
+      "category": "Food",
+      "date": "2026-03-27",
+      "type": "expense"
+    },
+    {
+      "id": "7",
+      "description": "Metro card recharge",
+      "amount": -500,
+      "category": "Travel",
+      "date": "2026-03-25",
+      "type": "expense"
+    },
+    {
+      "id": "8",
+      "description": "Netflix subscription",
+      "amount": -649,
+      "category": "Entertainment",
+      "date": "2026-03-22",
+      "type": "expense"
+    },
+    {
+      "id": "9",
+      "description": "Electricity bill",
+      "amount": -1100,
+      "category": "Bills",
+      "date": "2026-03-20",
+      "type": "expense"
+    },
+    {
+      "id": "10",
+      "description": "Bonus received",
+      "amount": 8000,
+      "category": "Income",
+      "date": "2026-03-18",
+      "type": "income"
+    },
+    {
+      "id": "11",
+      "description": "Grocery shopping",
+      "amount": -870,
+      "category": "Food",
+      "date": "2026-03-15",
+      "type": "expense"
+    },
+    {
+      "id": "12",
+      "description": "Ola cab",
+      "amount": -220,
+      "category": "Travel",
+      "date": "2026-03-12",
+      "type": "expense"
+    },
+    {
+      "id": "13",
+      "description": "Myntra order",
+      "amount": -1599,
+      "category": "Shopping",
+      "date": "2026-03-10",
+      "type": "expense"
+    },
+    {
+      "id": "14",
+      "description": "Internet bill",
+      "amount": -799,
+      "category": "Bills",
+      "date": "2026-03-08",
+      "type": "expense"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

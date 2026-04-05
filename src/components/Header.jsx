@@ -1,0 +1,109 @@
+import { useApp } from "../context/AppContext"
+import { NavLink } from "react-router-dom"
+
+function Header() {
+  // ✅ added darkMode + setDarkMode
+  const { role, setRole, darkMode, setDarkMode } = useApp()
+
+  const navStyle = ({ isActive }) => ({
+    textDecoration: "none",
+    fontSize: "13.5px",
+    fontWeight: "500",
+    padding: "6px 14px",
+    borderRadius: "8px",
+    background: isActive ? "var(--blue-light)" : "transparent",
+    color: isActive ? "var(--blue)" : "var(--text-muted)",
+    transition: "background 0.15s, color 0.15s"
+  })
+
+  return (
+    <div style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "24px",
+      background: "var(--surface)",
+      padding: "14px 24px",
+      borderRadius: "12px",
+      border: "1px solid var(--border)",
+      transition: "background 0.3s ease"
+    }}>
+
+      {/* LEFT */}
+      <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+        <div style={{
+          fontSize: "18px",
+          fontWeight: "700",
+          letterSpacing: "-0.5px",
+          color: "var(--text)"
+        }}>
+          Fin<span style={{ color: "var(--blue)" }}>Track</span>
+        </div>
+
+        <nav style={{ display: "flex", gap: "4px" }}>
+          <NavLink to="/" end style={navStyle}>Dashboard</NavLink>
+          <NavLink to="/transactions" style={navStyle}>Transactions</NavLink>
+          <NavLink to="/insights" style={navStyle}>Insights</NavLink>
+        </nav>
+      </div>
+
+      {/* RIGHT */}
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+
+        {/* 🌙 DARK MODE TOGGLE */}
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          style={{
+            width: "36px",
+            height: "36px",
+            borderRadius: "8px",
+            border: "1px solid var(--border)",
+            background: "var(--bg)",
+            cursor: "pointer",
+            fontSize: "16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          {darkMode ? "☀️" : "🌙"}
+        </button>
+
+        {/* ROLE BADGE */}
+        <span style={{
+          fontSize: "12px",
+          padding: "4px 12px",
+          borderRadius: "20px",
+          fontWeight: "500",
+          background: role === "Admin" ? "var(--blue-light)" : "var(--bg)",
+          color: role === "Admin" ? "var(--blue)" : "var(--text-muted)",
+          border: "1px solid var(--border)"
+        }}>
+          {role}
+        </span>
+
+        {/* ROLE DROPDOWN */}
+        <select
+          value={role}
+          onChange={e => setRole(e.target.value)}
+          style={{
+            padding: "7px 12px",
+            borderRadius: "8px",
+            border: "1px solid var(--border)",
+            fontSize: "13px",
+            fontFamily: "inherit",
+            background: "var(--bg)",
+            color: "var(--text)",
+            cursor: "pointer"
+          }}
+        >
+          <option value="Admin">Admin</option>
+          <option value="Viewer">Viewer</option>
+        </select>
+
+      </div>
+    </div>
+  )
+}
+
+export default Header

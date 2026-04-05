@@ -1,0 +1,79 @@
+/* Light mode variables — default */
+:root {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --text-hint: #9ca3af;
+  --blue: #2563eb;
+  --blue-light: #eff6ff;
+  --blue-mid: #bfdbfe;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --pink: #db2777;
+  --pink-light: #fdf2f8;
+  --teal: #0f766e;
+  --teal-light: #f0fdfa;
+}
+
+/* Dark mode variables — applied when html has class "dark" */
+html.dark {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-hint: #64748b;
+  --blue: #60a5fa;
+  --blue-light: #1e3a5f;
+  --blue-mid: #1e40af;
+  --green: #4ade80;
+  --green-light: #14532d;
+  --red: #f87171;
+  --red-light: #7f1d1d;
+  --amber: #fbbf24;
+  --amber-light: #78350f;
+  --pink: #f472b6;
+  --pink-light: #831843;
+  --teal: #2dd4bf;
+  --teal-light: #134e4a;
+}
+
+/* Apply bg and text color globally */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Fade in animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in   { animation: fadeInUp 0.4s ease both; }
+.fade-in-1 { animation: fadeInUp 0.4s ease 0.05s both; }
+.fade-in-2 { animation: fadeInUp 0.4s ease 0.15s both; }
+.fade-in-3 { animation: fadeInUp 0.4s ease 0.25s both; }
+.fade-in-4 { animation: fadeInUp 0.4s ease 0.35s both; }
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Spin */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
