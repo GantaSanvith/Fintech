@@ -1,5 +1,8 @@
 # FinTrack — Finance Dashboard
 
+> 🚀 Live Demo: https://fintech-peach.vercel.app
+> 📁 GitHub: https://github.com/GantaSanvith/Fintech
+
 A clean and interactive finance dashboard built with React. This project was built as part of the Zorvyn Frontend Developer Intern assignment.
 
 ---
@@ -22,7 +25,7 @@ A clean and interactive finance dashboard built with React. This project was bui
 
 - **Dark Mode** — Full dark and light mode toggle using CSS variables, preference saved to localStorage
 - **Data Persistence** — Transactions persist across page refreshes using localStorage
-- **Mock API Integration** — Data is served via json-server running on port 3001, with real GET, POST, and DELETE calls. Includes loading spinner and error state if API is unreachable
+- **Mock API Integration** — Data is served via MockAPI (cloud hosted), with real GET, POST, and DELETE calls. Includes loading spinner and error state if API is unreachable
 - **Export CSV** — Download all transactions as a .csv file openable in Excel or Google Sheets
 - **Animations** — Fade-in-up animations on page load with staggered delays, and hover lift effect on cards
 
@@ -36,9 +39,10 @@ A clean and interactive finance dashboard built with React. This project was bui
 | Vite | Build tool |
 | Recharts | Charts (BarChart, PieChart) |
 | React Router DOM | Client side routing |
-| json-server | Mock REST API |
+| MockAPI | Cloud hosted mock REST API |
 | CSS Variables | Theming and dark mode |
 | Context API | Global state management |
+| Vercel | Deployment |
 
 ---
 
@@ -46,7 +50,6 @@ A clean and interactive finance dashboard built with React. This project was bui
 
 ```
 finance-dashboard/
-├── db.json                        # json-server database file
 ├── package.json
 ├── README.md
 └── src/
@@ -76,7 +79,7 @@ finance-dashboard/
 
 ## Setup Instructions
 
-### 1. Clone or download the project
+### 1. Clone the project
 
 ```bash
 git clone https://github.com/GantaSanvith/Fintech
@@ -89,21 +92,7 @@ cd finance-dashboard
 npm install
 ```
 
-### 3. Start the mock API server
-
-Open a terminal and run:
-
-```bash
-npm run server
-```
-
-This starts json-server on `http://localhost:3001`
-
-Keep this terminal running in the background.
-
-### 4. Start the React app
-
-Open a second terminal and run:
+### 3. Start the React app
 
 ```bash
 npm run dev
@@ -111,7 +100,7 @@ npm run dev
 
 Then open `http://localhost:5173` in your browser.
 
-> Important: Both terminals must be running at the same time. If the API server is not running, the app will show a clear error message with instructions to start it.
+> No separate API server needed — the app connects to a live MockAPI endpoint hosted in the cloud.
 
 ---
 
@@ -148,7 +137,7 @@ Every component pulls only what it needs using the `useApp()` hook. This keeps c
 
 ## API Integration
 
-The app uses `json-server` to simulate a real REST API backed by `db.json`.
+The app uses MockAPI — a cloud hosted mock REST API — so it works on any device without running a local server.
 
 | Method | Endpoint | Action |
 |---|---|---|
@@ -159,7 +148,7 @@ The app uses `json-server` to simulate a real REST API backed by `db.json`.
 The app handles three API states:
 - **Loading** — spinner shown while fetching
 - **Success** — data rendered normally
-- **Error** — friendly error message shown with instructions if the server is not running
+- **Error** — friendly error message shown if API is unreachable
 
 ---
 
@@ -183,7 +172,7 @@ Role switching is handled on the frontend only using the role value stored in Co
 
 I started by planning the component structure and data shape before writing any code. The goal was to keep components small and focused — each one does one thing and reads state from context rather than receiving many props.
 
-The mock API uses json-server which provides real HTTP endpoints without needing a backend. This means the app behaves like a real API-connected frontend with loading states, error handling, and live data persistence.
+The mock API uses MockAPI which provides real cloud hosted HTTP endpoints. This means the app behaves like a real API-connected frontend with loading states, error handling, and live data persistence — and works fully on the deployed Vercel URL without any local server.
 
 Dark mode is implemented using CSS custom properties defined on the html element. Toggling a single class on the html tag switches every variable at once, so all components automatically respond without any extra logic.
 
