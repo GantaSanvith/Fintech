@@ -22,91 +22,56 @@ function TransactionTable() {
 
   const badgeStyle = (category) => {
     const styles = {
-      Food: { background: "#fffbeb", color: "#d97706" },
-      Travel: { background: "#eff6ff", color: "#2563eb" },
-      Shopping: { background: "#fdf2f8", color: "#db2777" },
-      Bills: { background: "#f0fdfa", color: "#0f766e" },
-      Entertainment: { background: "#faf5ff", color: "#7c3aed" },
-      Income: { background: "#f0fdf4", color: "#16a34a" },
+      Food:          { background: "var(--amber-light)", color: "var(--amber)" },
+      Travel:        { background: "var(--blue-light)", color: "var(--blue)" },
+      Shopping:      { background: "var(--pink-light)", color: "var(--pink)" },
+      Bills:         { background: "var(--teal-light)", color: "var(--teal)" },
+      Entertainment: { background: "var(--blue-light)", color: "var(--blue)" },
+      Income:        { background: "var(--green-light)", color: "var(--green)" },
     }
-    return styles[category] || { background: "#f3f4f6", color: "#6b7280" }
+    return styles[category] || { background: "var(--bg)", color: "var(--text-muted)" }
   }
 
-  const thStyle = {
-    textAlign: "left",
-    padding: "8px 0",
-    fontSize: "11px",
-    color: "var(--text-hint)", // ✅ updated
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "0.4px"
+  const inputStyle = {
+    padding: "6px 12px",
+    borderRadius: "20px",
+    border: "1px solid var(--border)",
+    fontSize: "13px",
+    outline: "none",
+    background: "var(--bg)",
+    color: "var(--text)",
+    fontFamily: "inherit",
+    width: "100%"
   }
 
   return (
-    <div style={{
-      background: "var(--surface)",   // ✅ updated
-      padding: "20px",
-      borderRadius: "12px",
-      border: "1px solid var(--border)", // ✅ updated
-      marginBottom: "24px"
-    }}>
+    <div className="fade-in" style={{ background: "var(--surface)", padding: "20px", borderRadius: "12px", border: "1px solid var(--border)", marginBottom: "24px" }}>
 
-      {/* TOP BAR */}
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
-        <h3 style={{ fontSize: "14px", fontWeight: "600", color: "var(--text)" }}>
-          Transactions
-        </h3>
+      {/* Top bar */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
+        <h3 style={{ fontSize: "14px", fontWeight: "600", color: "var(--text)" }}>Transactions</h3>
 
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-
-          {/* SEARCH */}
+        <div className="table-controls">
           <input
             type="text"
             placeholder="Search..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={{
-              padding: "6px 12px",
-              borderRadius: "20px",
-              border: "1px solid var(--border)",
-              fontSize: "13px",
-              width: "160px",
-              outline: "none",
-              background: "var(--bg)",
-              color: "var(--text)"
-            }}
+            style={inputStyle}
           />
-
-          {/* FILTER */}
           <select
             value={filterCategory}
             onChange={e => setFilterCategory(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "20px",
-              border: "1px solid var(--border)",
-              fontSize: "13px",
-              background: "var(--bg)",
-              color: "var(--text)"
-            }}
+            style={{ ...inputStyle, cursor: "pointer" }}
           >
             {categories.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
-
-          {/* SORT */}
           <select
             value={sortOrder}
             onChange={e => setSortOrder(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "20px",
-              border: "1px solid var(--border)",
-              fontSize: "13px",
-              background: "var(--bg)",
-              color: "var(--text)"
-            }}
+            style={{ ...inputStyle, cursor: "pointer" }}
           >
             <option value="newest">Newest first</option>
             <option value="oldest">Oldest first</option>
@@ -115,80 +80,64 @@ function TransactionTable() {
         </div>
       </div>
 
-      {/* EMPTY */}
+      {/* Empty state */}
       {filtered.length === 0 && (
-        <div style={{ textAlign: "center", padding: "40px 0", color: "var(--text-hint)" }}>
+        <div style={{ textAlign: "center", padding: "40px 0", color: "var(--text-hint)", fontSize: "14px" }}>
           No transactions found
         </div>
       )}
 
-      {/* TABLE */}
+      {/* Table */}
       {filtered.length > 0 && (
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ borderBottom: "1px solid var(--border)" }}>
-              <th style={thStyle}>Description</th>
-              <th style={thStyle}>Date</th>
-              <th style={thStyle}>Category</th>
-              <th style={thStyle}>Type</th>
-              <th style={thStyle}>Amount</th>
-              <th style={thStyle}>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filtered.map(t => (
-              <tr key={t.id} style={{ borderBottom: "1px solid var(--border)" }}>
-
-                <td style={{ padding: "11px 0", fontSize: "13px", color: "var(--text)" }}>
-                  {t.description}
-                </td>
-
-                <td style={{ padding: "11px 0", fontSize: "12px", color: "var(--text-muted)" }}>
-                  {t.date}
-                </td>
-
-                <td style={{ padding: "11px 0" }}>
-                  <span style={{ ...badgeStyle(t.category), padding: "3px 9px", borderRadius: "20px", fontSize: "11px" }}>
-                    {t.category}
-                  </span>
-                </td>
-
-                <td style={{ padding: "11px 0", color: "var(--text-muted)" }}>
-                  {t.type}
-                </td>
-
-                <td style={{
-                  padding: "11px 0",
-                  fontWeight: "600",
-                  color: t.type === "income" ? "#16a34a" : "#dc2626"
-                }}>
-                  {t.type === "income" ? "+" : ""}₹{Math.abs(t.amount).toLocaleString()}
-                </td>
-
-                <td style={{ padding: "11px 0" }}>
-                  {role === "Admin" && (
-                    <button
-                      onClick={() => deleteTransaction(t.id)}
-                      style={{
-                        background: "#fef2f2",
-                        color: "#dc2626",
-                        border: "1px solid #fecaca",
-                        borderRadius: "6px",
-                        padding: "3px 10px",
-                        fontSize: "11px",
-                        cursor: "pointer"
-                      }}
-                    >
-                      Delete
-                    </button>
-                  )}
-                </td>
-
+        <div className="table-wrapper">
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "500px" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid var(--border)" }}>
+                {["Description", "Date", "Category", "Type", "Amount", ""].map((h, i) => (
+                  <th key={i} style={{ textAlign: i === 4 ? "right" : "left", padding: "8px 0", fontSize: "11px", color: "var(--text-hint)", fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.4px", paddingRight: i < 5 ? "12px" : "0" }}>
+                    {h}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filtered.map(t => (
+                <tr key={t.id} style={{ borderBottom: "1px solid var(--border)" }}>
+                  <td style={{ padding: "11px 12px 11px 0", fontSize: "13px", color: "var(--text)" }}>{t.description}</td>
+                  <td style={{ padding: "11px 12px 11px 0", fontSize: "12px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>{t.date}</td>
+                  <td style={{ padding: "11px 12px 11px 0" }}>
+                    <span style={{ ...badgeStyle(t.category), fontSize: "11px", padding: "3px 9px", borderRadius: "20px", fontWeight: "500", whiteSpace: "nowrap" }}>
+                      {t.category}
+                    </span>
+                  </td>
+                  <td style={{ padding: "11px 12px 11px 0", fontSize: "12px", color: "var(--text-muted)", textTransform: "capitalize" }}>{t.type}</td>
+                  <td style={{ padding: "11px 12px 11px 0", fontSize: "13px", fontWeight: "600", color: t.type === "income" ? "var(--green)" : "var(--red)", textAlign: "right", whiteSpace: "nowrap" }}>
+                    {t.type === "income" ? "+" : ""}₹{Math.abs(t.amount).toLocaleString()}
+                  </td>
+                  <td style={{ padding: "11px 0", textAlign: "right" }}>
+                    {role === "Admin" && (
+                      <button
+                        onClick={() => deleteTransaction(t.id)}
+                        style={{
+                          background: "var(--red-light)",
+                          color: "var(--red)",
+                          border: "1px solid var(--red)",
+                          borderRadius: "6px",
+                          padding: "3px 10px",
+                          fontSize: "11px",
+                          cursor: "pointer",
+                          fontFamily: "inherit"
+                        }}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )

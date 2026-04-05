@@ -2,7 +2,6 @@ import { useApp } from "../context/AppContext"
 import { NavLink } from "react-router-dom"
 
 function Header() {
-  // ✅ added darkMode + setDarkMode
   const { role, setRole, darkMode, setDarkMode } = useApp()
 
   const navStyle = ({ isActive }) => ({
@@ -13,7 +12,8 @@ function Header() {
     borderRadius: "8px",
     background: isActive ? "var(--blue-light)" : "transparent",
     color: isActive ? "var(--blue)" : "var(--text-muted)",
-    transition: "background 0.15s, color 0.15s"
+    transition: "background 0.15s, color 0.15s",
+    whiteSpace: "nowrap"
   })
 
   return (
@@ -23,34 +23,32 @@ function Header() {
       alignItems: "center",
       marginBottom: "24px",
       background: "var(--surface)",
-      padding: "14px 24px",
+      padding: "14px 20px",
       borderRadius: "12px",
       border: "1px solid var(--border)",
-      transition: "background 0.3s ease"
+      transition: "background 0.3s ease",
+      flexWrap: "wrap",
+      gap: "12px"
     }}>
 
-      {/* LEFT */}
-      <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-        <div style={{
-          fontSize: "18px",
-          fontWeight: "700",
-          letterSpacing: "-0.5px",
-          color: "var(--text)"
-        }}>
+      {/* LEFT — logo + nav */}
+      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <div style={{ fontSize: "18px", fontWeight: "700", letterSpacing: "-0.5px", color: "var(--text)" }}>
           Fin<span style={{ color: "var(--blue)" }}>Track</span>
         </div>
 
-        <nav style={{ display: "flex", gap: "4px" }}>
+        {/* Nav links — hidden on mobile via CSS class */}
+        <nav className="nav-links" style={{ display: "flex", gap: "4px" }}>
           <NavLink to="/" end style={navStyle}>Dashboard</NavLink>
           <NavLink to="/transactions" style={navStyle}>Transactions</NavLink>
           <NavLink to="/insights" style={navStyle}>Insights</NavLink>
         </nav>
       </div>
 
-      {/* RIGHT */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      {/* RIGHT — dark mode + role badge + dropdown */}
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
 
-        {/* 🌙 DARK MODE TOGGLE */}
+        {/* Dark mode toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
           style={{
@@ -63,13 +61,15 @@ function Header() {
             fontSize: "16px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            transition: "background 0.2s",
+            flexShrink: 0
           }}
         >
           {darkMode ? "☀️" : "🌙"}
         </button>
 
-        {/* ROLE BADGE */}
+        {/* Role badge */}
         <span style={{
           fontSize: "12px",
           padding: "4px 12px",
@@ -77,12 +77,13 @@ function Header() {
           fontWeight: "500",
           background: role === "Admin" ? "var(--blue-light)" : "var(--bg)",
           color: role === "Admin" ? "var(--blue)" : "var(--text-muted)",
-          border: "1px solid var(--border)"
+          border: "1px solid var(--border)",
+          whiteSpace: "nowrap"
         }}>
           {role}
         </span>
 
-        {/* ROLE DROPDOWN */}
+        {/* Role dropdown */}
         <select
           value={role}
           onChange={e => setRole(e.target.value)}

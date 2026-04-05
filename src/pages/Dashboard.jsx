@@ -7,10 +7,13 @@ function Dashboard() {
   return (
     <div>
       <SummaryCards />
-      <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: "16px" }}>
+
+      {/* Charts side by side on desktop, stacked on mobile */}
+      <div className="charts-grid" style={{ marginBottom: "24px" }}>
         <BalanceChart />
         <SpendingChart />
       </div>
+
       <InsightsSection />
     </div>
   )
