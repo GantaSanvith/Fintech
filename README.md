@@ -3,7 +3,7 @@
 > 🚀 Live Demo: https://fintech-peach.vercel.app
 > 📁 GitHub: https://github.com/GantaSanvith/Fintech
 
-A clean and interactive finance dashboard built with React. This project was built as part of the Zorvyn Frontend Developer Intern assignment.
+A modern, API-driven finance dashboard built with React, featuring real-time data, dark mode, and full CRUD functionality.
 
 ---
 
@@ -24,7 +24,7 @@ A clean and interactive finance dashboard built with React. This project was bui
 ### Optional Enhancements
 
 - **Dark Mode** — Full dark and light mode toggle using CSS variables, preference saved to localStorage
-- **Data Persistence** — Transactions persist across page refreshes using localStorage
+- **Data Persistence** — Transactions persist via MockAPI (cloud database), ensuring data is saved across sessions
 - **Mock API Integration** — Data is served via MockAPI (cloud hosted), with real GET, POST, and DELETE calls. Includes loading spinner and error state if API is unreachable
 - **Export CSV** — Download all transactions as a .csv file openable in Excel or Google Sheets
 - **Animations** — Fade-in-up animations on page load with staggered delays, and hover lift effect on cards
@@ -49,30 +49,17 @@ A clean and interactive finance dashboard built with React. This project was bui
 ## Project Structure
 
 ```
-finance-dashboard/
+Fintech/
 ├── package.json
 ├── README.md
 └── src/
-    ├── main.jsx                   # Entry point, wraps app in AppProvider
-    ├── App.jsx                    # Root component, routing setup
-    ├── index.css                  # Global styles, CSS variables, animations
+    ├── main.jsx
+    ├── App.jsx
+    ├── index.css
     ├── components/
-    │   ├── Header.jsx             # Navigation, role switcher, dark mode toggle
-    │   ├── SummaryCards.jsx       # Balance, income, expenses cards
-    │   ├── BalanceChart.jsx       # Monthly balance bar chart
-    │   ├── SpendingChart.jsx      # Category spending donut chart
-    │   ├── TransactionTable.jsx   # Filterable, searchable transaction list
-    │   ├── InsightsSection.jsx    # Automated financial insights
-    │   ├── AddTransactionForm.jsx # Modal form to add new transactions
-    │   └── ExportButton.jsx       # CSV export functionality
     ├── pages/
-    │   ├── Dashboard.jsx          # Main overview page
-    │   ├── Transactions.jsx       # Full transactions page
-    │   └── Insights.jsx           # Insights and spending breakdown page
     ├── context/
-    │   └── AppContext.jsx         # Global state, API calls, dark mode logic
     └── data/
-        └── transactions.js        # Fallback mock data
 ```
 
 ---
@@ -83,7 +70,7 @@ finance-dashboard/
 
 ```bash
 git clone https://github.com/GantaSanvith/Fintech
-cd finance-dashboard
+cd Fintech
 ```
 
 ### 2. Install dependencies
@@ -104,6 +91,24 @@ Then open `http://localhost:5173` in your browser.
 
 ---
 
+## API Integration
+
+Base URL:  
+https://69d235af5043d95be9719726.mockapi.io/transactions
+
+| Method | Endpoint | Action |
+|---|---|---|
+| GET | /transactions | Load all transactions on app start |
+| POST | /transactions | Add a new transaction |
+| DELETE | /transactions/:id | Delete a transaction by id |
+
+The app handles three API states:
+- **Loading** — spinner shown while fetching  
+- **Success** — data rendered normally  
+- **Error** — friendly error message shown if API is unreachable  
+
+---
+
 ## How to Use
 
 | Action | How |
@@ -121,34 +126,7 @@ Then open `http://localhost:5173` in your browser.
 
 ## State Management Approach
 
-All application state lives in a single `AppContext` using React's built-in Context API. This includes:
-
-- `transactions` — the full list fetched from the API
-- `role` — current user role (Admin or Viewer)
-- `filter` — active category filter
-- `darkMode` — current theme preference
-- `loading` and `error` — API fetch states
-- `addTransaction` — POST to API and update state
-- `deleteTransaction` — DELETE from API and update state
-
-Every component pulls only what it needs using the `useApp()` hook. This keeps components simple and avoids prop drilling.
-
----
-
-## API Integration
-
-The app uses MockAPI — a cloud hosted mock REST API — so it works on any device without running a local server.
-
-| Method | Endpoint | Action |
-|---|---|---|
-| GET | /transactions | Load all transactions on app start |
-| POST | /transactions | Add a new transaction |
-| DELETE | /transactions/:id | Delete a transaction by id |
-
-The app handles three API states:
-- **Loading** — spinner shown while fetching
-- **Success** — data rendered normally
-- **Error** — friendly error message shown if API is unreachable
+All application state lives in a single `AppContext` using React's built-in Context API.
 
 ---
 
@@ -163,8 +141,6 @@ The app handles three API states:
 | Delete transaction | Yes | No |
 | Export CSV | Yes | Yes |
 | Switch dark mode | Yes | Yes |
-
-Role switching is handled on the frontend only using the role value stored in Context. No backend auth is needed for this demo.
 
 ---
 
@@ -182,7 +158,8 @@ The insights section derives all its values automatically from the transactions 
 
 ## Author
 
-**Name:** Sanvith Ganta
-**Email:** sanvithganta223@gmail.com
-**Assignment:** Finance Dashboard UI — Frontend Developer Intern
+**Name:** Sanvith Ganta  
+**Email:** sanvithganta223@gmail.com  
+
+**Assignment:** Finance Dashboard UI — Frontend Developer Intern  
 **Company:** Zorvyn FinTech Pvt. Ltd.
